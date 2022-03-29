@@ -1164,7 +1164,7 @@ class FSAWNoiseModel(NoiseModel):
     def __init__(self, *qids, data_model=None, preload=True, ivar=None, mask_est=None,
                  calibrated=True, downgrade=1, lmax=None, mask_version=None, mask_name=None,
                  union_sources=None, kfilt_lbounds=None, fwhm_ivar=None, notes=None, 
-                 dtype=None, lamb=1.8, n=24, fwhm_fact=2., **kwargs):
+                 dtype=None, lamb=1.8, n=24, fwhm_fact=2., lmin=10, **kwargs):
         """An FSAWNoiseModel object supports drawing simulations which capture direction- 
         and scale-dependent, spatially-varying map depth. The simultaneous direction- and
         scale-sensitivity is achieved through steerable wavelet kernels in Fourier space.
@@ -1272,7 +1272,7 @@ class FSAWNoiseModel(NoiseModel):
         # used to build the kernel generating functions, specifically, to 
         # check that the last kernel is not "clipped"
         self._fk = fsaw_noise.FSAWKernels(
-            self._lamb, 10_800, 10, 5300, self._n, self._shape, self._wcs,
+            self._lamb, 10_800, lmin, 5300, self._n, self._shape, self._wcs,
             dtype=self._dtype, nforw=[0, n//2], nback=[0, n//2]
         )
 

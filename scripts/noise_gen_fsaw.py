@@ -18,6 +18,8 @@ parser.add_argument('--downgrade', dest='downgrade', type=int, default=1,
 parser.add_argument('--lmax', dest='lmax', type=int, default=None,
                     help='Bandlimit of covariance matrix.')
 
+parser.add_argument('--lmin', dest='lmin', type=int, default=10)
+
 parser.add_argument('--lambda', dest='lamb', type=float, required=False, default=1.8,
                     help='Parameter specifying width of wavelets kernels in log(ell).')
 
@@ -51,5 +53,5 @@ else:
 model = nm.FSAWNoiseModel(
     *args.qid, data_model=data_model, downgrade=args.downgrade, lmax=args.lmax, mask_version=args.mask_version,
     mask_name=args.mask_name, union_sources=args.union_sources, kfilt_lbounds=args.kfilt_lbounds, 
-    notes=args.notes, lamb=args.lamb, n=args.n, fwhm_fact=args.fwhm_fact)
+    notes=args.notes, lamb=args.lamb, n=args.n, fwhm_fact=args.fwhm_fact, lmin=args.lmin)
 model.get_model(check_on_disk=True, verbose=True)
